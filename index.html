@@ -1005,6 +1005,82 @@
                 text-align: center;
             }
         }
+        /* --- Styling Lightbox / Modal Preview Foto --- */
+.photo-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.photo-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.photo-modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-modal-content img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.photo-modal-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.photo-action-btn {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.photo-action-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.photo-modal-close {
+    position: absolute;
+    top: -45px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 28px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -1194,7 +1270,7 @@
             <div class="activity-card reveal">
                 <div>
                     <div class="activity-img-container">
-                        <img src="" alt="">
+                        <img src="#">
                     </div>
                     <div class="activity-meta" style="margin-top: 15px;">
                         <span class="activity-tag">Pendalaman Alkitab</span>
@@ -1216,7 +1292,7 @@
                 </button>
             </div>
 
-         <!-- Kegiatan 2: Latihan Koor -->
+            <!-- Kegiatan 2: Latihan Koor -->
             <div class="activity-card reveal">
                 <div>
                     <div class="activity-img-container">
@@ -1243,7 +1319,7 @@
             </div>
 
             <!-- Kegiatan 3: Natal ReNA -->
-             <div class="activity-card reveal">
+            <div class="activity-card reveal">
                 <div>
                     <div class="activity-img-container">
                         <img src="natal 1.jpeg" alt="Natal ReNA 2026">
@@ -1271,6 +1347,18 @@
     </section>
 
     <!-- Section Galeri Kami -->
+     <!-- Lightbox Modal untuk Preview Foto -->
+<div class="photo-modal-overlay" id="photoModal">
+    <div class="photo-modal-content">
+        <button class="photo-modal-close" id="closePhotoModal"><i class="fa-solid fa-xmark"></i></button>
+        <img id="modalImage" src="" alt="Preview Foto">
+        <div class="photo-modal-actions">
+            <a id="downloadPhotoBtn" href="" download class="photo-action-btn" target="_blank">
+                <i class="fa-solid fa-download"></i> Download Foto
+            </a>
+        </div>
+    </div>
+</div>
  <section class="section-padding" id="galeriKami">
         <div class="section-header reveal">
             <h2>Galeri Kami</h2>
@@ -1698,6 +1786,38 @@ jadwalModal.addEventListener('click', (e) => {
                 modalOverlay.classList.remove('active');
             }
         });
+        const photoModal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    const closePhotoModal = document.getElementById('closePhotoModal');
+    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
+
+    // Pilih semua tag <img> yang ada di dalam galeri atau halaman (bisa disesuaikan kelasnya)
+    // Di sini kita targetkan semua gambar di dalam section galeri / card agar bisa diklik
+    const clickableImages = document.querySelectorAll('.about-gallery img, .activity-img-container img, .gallery-img-wrapper img');
+
+    clickableImages.forEach(img => {
+        // Berikan kursor pointer agar user tahu foto bisa diklik
+        img.style.cursor = 'pointer';
+        
+        img.addEventListener('click', () => {
+            const imgSrc = img.src;
+            modalImage.src = imgSrc;
+            downloadPhotoBtn.href = imgSrc;
+            photoModal.classList.add('active');
+        });
+    });
+
+    // Tombol Tutup (Silang)
+    closePhotoModal.addEventListener('click', () => {
+        photoModal.classList.remove('active');
+    });
+
+    // Tutup jika mengklik area gelap di luar foto
+    photoModal.addEventListener('click', (e) => {
+        if (e.target === photoModal) {
+            photoModal.classList.remove('active');
+        }
+    });
     </script>
 </body>
 </html>
