@@ -72,7 +72,54 @@
             background-color: var(--bg-color);
             color: var(--text-color);
         }
+/* Styling Pop-Up (Modal) Jadwal Ibadah */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background-color: var(--modal-bg);
+    width: 90%;
+    max-width: 550px;
+    border-radius: 24px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: translateY(30px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-box {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-color);
+    cursor: pointer;
+}
         /* Header / Navbar */
         header {
             display: flex;
@@ -1005,7 +1052,7 @@
             
             <div class="hero-buttons">
                 <a href="#tentangKami" class="btn btn-light">Tentang Kami</a>
-                <a href="#strukturKami" class="btn btn-light">Struktur Organisasi</a>
+       <a href="#" id="openJadwalModal" class="btn btn-light">Jadwal Ibadah</a>
                 <a href="#kegiatanKami" class="btn btn-light">Kegiatan Kami</a>
             </div>
         </div>
@@ -1095,7 +1142,7 @@
             <div class="structure-card reveal">
                 <div class="structure-card-header">
                     <div class="structure-icon"><i class="fa-solid fa-camera"></i></div>
-                    <h3>Divisi Pubdok</h3>
+                    <h3>Divisi</h3>
                 </div>
                 <p>Mengabadikan setiap momen kebersamaan dan mengelola media informasi digital RENA.</p>
                 <div class="member-list">
@@ -1161,7 +1208,7 @@
                     data-title="Pendalaman Alkitab" 
                     data-tag="Pendalaman Alkitab" 
                     data-location="HKBP Jetun Kabil" 
-                    data-time="Setiap Hari Sabtu, 19.30 WIB  (Setiap minngu terakhir bulan)" 
+                    data-time="Setiap Hari Sabtu, 19.30 WIB  (Setiap minggu akhir bulan)" 
                     data-theme="-" 
                     data-speaker="-" 
                     data-desc="Pendalaman Alkitab merupakan sarana bagi Remaja Naposo untuk mempelajari Alkitab secara kontekstual dan relevan dengan kehidupan kaum muda. Melalui diskusi hangat dan tanya jawab, kita bersama-sama memperakar iman dan saling menguatkan.">
@@ -1213,9 +1260,9 @@
                     data-title="Natal RENA HKBP Jetun Kabil" 
                     data-tag="Perayaan" 
                     data-location="Gereja HKBP Jetun Kabil" 
-                    data-time="Sesuai Jadwal Tahunan" 
-                    data-theme="Kemuliaan bagi Allah dan Damai Sejahtera di Bumi" 
-                    data-speaker="Pendeta / Pengkhotbah Undangan" 
+                    data-time="17.00 - selesai WIB" 
+                    data-theme="Allah Hadir Untuk Menyelamatkan Keluarga " 
+                    data-speaker="Pdt. John SB. Manurung,M.Th" 
                     data-desc="Perayaan Natal RENA adalah acara tahunan yang dirancang untuk merayakan kelahiran Yesus Kristus bersama seluruh anggota persekutuan, orang tua, dan jemaat gereja.">
                     Lihat Detail
                 </button>
@@ -1422,12 +1469,12 @@
                 <div class="warta-header-box">
                     <div class="warta-tag-date">
                         <span class="warta-badge">Minggu Ini</span>
-                        <div class="warta-date"><i class="fa-regular fa-calendar"></i> 30 Mar</div>
+                        <div class="warta-date"><i class="fa-regular fa-calendar"></i> -</div>
                     </div>
                     <h3>Jadwal Ibadah & Latihan Koor</h3>
                     <p>Pemberitahuan mengenai petugas liturgi, pemusik, serta jadwal latihan paduan suara RENA untuk persiapan ibadah Minggu mendatang.</p>
                 </div>
-                <a href="#" class="warta-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
+    <button class="warta-btn" id="openJadwalModalDetail">Lihat detail <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
     </section>
@@ -1458,9 +1505,37 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 RENA HKBP Jetun Kabil. All rights reserved.</p>
-            <p>Developed by Christian Sipayung</p>
+            <p>Developed <b>by Christian Sipayung</b></p>
         </div>
     </footer>
+
+
+    <!-- Pop-Up (Modal) Jadwal Ibadah -->
+<div class="modal-overlay" id="jadwalModal">
+    <div class="modal-box">
+        <button class="modal-close" id="closeJadwalModal">&times;</button>
+        <h3 class="modal-title">Jadwal Ibadah Minggu</h3>
+
+        <br>
+
+        <div class="jadwal-list-modal">
+            <div class="jadwal-item-modal">
+                <i class="fa-solid fa-church"></i>
+        <div>Ibadah Sekolah Minggu <span>07.00 - 08.00 WIB (Bahasa Indonesia)</span></div>
+
+            </div>
+            <div class="jadwal-item-modal">
+                <i class="fa-solid fa-church"></i>
+                <div>Ibadah Pagi <span>08.30 - 09.30 WIB (Bahasa Indonesia)</span></div>
+             <i class="fa-solid fa-church"></i>
+                             <div>Ibadah Siang <span>10.00 - 12.00 WIB (Bahasa Batak)</span></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
     <!-- Modal Pop-Up Detail Kegiatan -->
     <div class="modal-overlay" id="activityModal">
@@ -1524,7 +1599,54 @@
                 themeText.textContent = 'Tema';
             }
         });
+        const modalWarta = document.getElementById('wartaModal');
+    const openWartaBtn = document.getElementById('openWartaBtn');
+    const closeWartaModal = document.getElementById('closeWartaModal');
 
+    // Ketika tombol "Baca Selengkapnya" diklik
+    if (openWartaBtn) {
+        openWartaBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modalWarta.classList.add('active');
+        });
+    }
+
+    // Ketika tombol 'X' (close) diklik
+    if (closeWartaModal) {
+        closeWartaModal.addEventListener('click', function() {
+            modalWarta.classList.remove('active');
+        });
+    }
+
+    // Ketika area gelap di luar kotak modal diklik, modal ikut tertutup
+    window.addEventListener('click', function(e) {
+        if (e.target === modalWarta) {
+            modalWarta.classList.remove('active');
+        }
+    });
+// Logika Pop-Up (Modal) Jadwal Ibadah
+const jadwalModal = document.getElementById('jadwalModal');
+const openJadwalModal = document.getElementById('openJadwalModal');
+const closeJadwalModal = document.getElementById('closeJadwalModal');
+
+// Buka modal saat menu Jadwal Ibadah diklik
+openJadwalModal.addEventListener('click', (e) => {
+    e.preventDefault();
+    jadwalModal.classList.add('active');
+    dropdownMenu.classList.remove('active'); // Otomatis menutup dropdown menu
+});
+
+// Tutup modal saat tombol silang (x) diklik
+closeJadwalModal.addEventListener('click', () => {
+    jadwalModal.classList.remove('active');
+});
+
+// Tutup modal jika mengklik area gelap di luar kotak modal
+jadwalModal.addEventListener('click', (e) => {
+    if (e.target === jadwalModal) {
+        jadwalModal.classList.remove('active');
+    }
+});
         // Scroll Reveal Animation
         function revealElements() {
             const reveals = document.querySelectorAll('.reveal');
