@@ -13,6 +13,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Animasi Dasar (Default: dari bawah ke atas) */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tambahan: Animasi dari Kiri ke Kanan */
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Tambahan: Animasi dari Kanan ke Kiri */
+.reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+        
         .jadwal-warta {
     margin-top: 15px;
     margin-bottom: 20px;
@@ -1759,6 +1797,30 @@
 
     <!-- JavaScript Fungsionalitas Website -->
     <script>
+         function revealOnScroll() {
+        var reveals = document.querySelectorAll(".reveal");
+
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementBottom = reveals[i].getBoundingClientRect().bottom;
+            var elementVisible = 150; // Jarak pemicu dari bawah layar
+
+            // Jika elemen masuk ke dalam layar (baik dari atas ke bawah maupun sebaliknya)
+            if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
+                reveals[i].classList.add("active");
+            } else {
+                // Menghapus kelas active agar animasi terulang kembali saat di-scroll bolak-balik
+                reveals[i].classList.remove("active");
+            }
+        }
+    }
+
+    // Jalankan fungsi saat halaman di-scroll
+    window.addEventListener("scroll", revealOnScroll);
+
+    // Jalankan sekali saat halaman pertama kali dimuat
+    revealOnScroll();
         // Toggle Dropdown Menu
         const menuBtn = document.getElementById('menuBtn');
         const dropdownMenu = document.getElementById('dropdownMenu');
