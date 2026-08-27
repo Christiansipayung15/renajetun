@@ -16,34 +16,42 @@
         /* Animasi Dasar (Default: dari bawah ke atas) */
 .reveal {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(60px);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Tambahan: Animasi dari Kiri ke Kanan */
-.reveal-left {
+/* 2. Animasi dari Atas ke Bawah */
+.reveal-top {
     opacity: 0;
-    transform: translateX(-60px);
+    transform: translateY(-60px);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.reveal-top.active {
+    opacity: 1;
+    transform: translateY(0);
+}
 
+/* 3. Animasi dari Kiri ke Tengah / Kanan */
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .reveal-left.active {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* Tambahan: Animasi dari Kanan ke Kiri */
+/* 4. Animasi dari Kanan ke Tengah / Kiri */
 .reveal-right {
     opacity: 0;
-    transform: translateX(60px);
+    transform: translateX(80px);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .reveal-right.active {
     opacity: 1;
     transform: translateX(0);
@@ -1173,16 +1181,16 @@
         </div>
     </section>
 
-    <!-- Section Tentang Kami -->
+<!-- Section Tentang Kami -->
     <section class="section-padding" id="tentangKami">
-        <div class="section-header reveal">
+        <div class="section-header reveal-left ">
             <h2>Tentang Kami</h2>
             <p>Mengenal lebih dekat visi, misi, dan nilai-nilai persekutuan kami.</p>
         </div>
 
         <div class="about-container">
             <!-- Kolom Teks & Visi Misi -->
-            <div class="about-card reveal">
+            <div class="about-card reveal-right">
                 <h3>Komunitas Kami</h3>
                 <p>RENA HKBP Jetun Kabil adalah wadah persekutuan generasi muda yang berakar dalam iman Kristiani. Kami hadir untuk saling menguatkan, membangun kebersamaan yang positif, dan mendedikasikan talenta untuk kemuliaan nama Tuhan.</p>
                 <p>Lewat berbagai kegiatan rohani, sosial, dan kebersamaan, kami rindu setiap pemuda-pemudi menemukan panggilan hidupnya serta menjadi garam dan terang bagi gereja dan masyarakat.</p>
@@ -1200,7 +1208,7 @@
             </div>
 
             <!-- Kolom Galeri Foto -->
-            <div class="about-gallery reveal">
+            <div class="about-gallery reveal-right">
                 <div class="gallery-main-img">
                     <img src="gambar.png" alt="Kegiatan RENA HKBP Jetun Kabil">
                 </div>
@@ -1553,10 +1561,10 @@
             <!-- Item Galeri 3 -->
            
           
-    </section>
+ </section>
 <!-- Section Hubungi Kami -->
     <section class="section-padding" id="hubungiKami">
-        <div class="section-header reveal">
+        <div class="section-header reveal-right">
             <h2>Hubungi Kami</h2>
             <p>Ingin bergabung atau mengenal kami lebih dekat? Kami senang menyambutmu!</p>
         </div>
@@ -1584,8 +1592,8 @@
         </div>
  </section>
     
-    <section class="section-padding" id="wartaKami">
-        <div class="section-header reveal">
+  <section class="section-padding" id="wartaKami">
+        <div class="section-header reveal-left">
             <h2>Warta & Pengumuman</h2>
             <p>Informasi terbaru seputar jadwal ibadah, kegiatan, dan warta jemaat RENA HKBP Jetun Kabil.</p>
         </div>
@@ -1716,29 +1724,28 @@
 
     <!-- JavaScript Fungsionalitas Website -->
     <script>
-         function revealOnScroll() {
-        var reveals = document.querySelectorAll(".reveal");
+  function revealOnScroll() {
+        // Menangkap semua elemen dengan berbagai arah animasi
+        var reveals = document.querySelectorAll(".reveal, .reveal-top, .reveal-left, .reveal-right");
 
         for (var i = 0; i < reveals.length; i++) {
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
             var elementBottom = reveals[i].getBoundingClientRect().bottom;
-            var elementVisible = 150; // Jarak pemicu dari bawah layar
+            var elementVisible = 120; // Batas jarak pemicu
 
-            // Jika elemen masuk ke dalam layar (baik dari atas ke bawah maupun sebaliknya)
+            // Jika elemen masuk ke layar (baik di-scroll ke bawah maupun ke atas)
             if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
                 reveals[i].classList.add("active");
             } else {
-                // Menghapus kelas active agar animasi terulang kembali saat di-scroll bolak-balik
+                // Elemen mereset animasinya saat keluar layar agar bisa berulang lagi
                 reveals[i].classList.remove("active");
             }
         }
     }
 
-    // Jalankan fungsi saat halaman di-scroll
+    // Jalankan saat di-scroll dan saat halaman pertama kali dimuat
     window.addEventListener("scroll", revealOnScroll);
-
-    // Jalankan sekali saat halaman pertama kali dimuat
     revealOnScroll();
         // Toggle Dropdown Menu
         const menuBtn = document.getElementById('menuBtn');
