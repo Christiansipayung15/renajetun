@@ -14,20 +14,28 @@
     
     <style>
     /* Gaya untuk badge NEW di pojok kanan atas (diperbarui) */
+/* Mengatur kontainer tanggal agar perataan teksnya ke kanan (menyesuaikan posisi tanggal) */
+.warta-date {
+    text-align: right; /* Memastikan tanggal dan elemen di dalamnya rata kanan */
+}
+
+/* Wadah pembungkus teks tanggal dan badge */
+.warta-date span {
+    display: inline-block;
+    text-align: center; /* Membuat teks di dalamnya berada di tengah relatif terhadap tanggal */
+}
+
+/* Gaya badge NEW yang ukurannya sudah kecil */
 .warta-date .new-badge {
-    display: inline-block;     /* Agar bisa diberi padding dan ukuran */
-    background-color: #ef4444; /* Warna merah (tetap) */
-    color: #ffffff;            /* Warna teks putih (tetap) */
-    
-    /* PENYESUAIAN UKURAN & POSISI */
-    font-size: 8px;            /* Mengecilkan ukuran font dari 9px menjadi 8px */
-    padding: 0px 4px;          /* Mengecilkan padding agar badge lebih kompak */
-    border-radius: 4px;        /* Sudut membulat (tetap) */
-    margin-top: 3px;           /* Jarak dari tanggal di atasnya (tetap) */
-    
-    /* MEMASTIKAN DI TENGAH SECARA HORIZONTAL */
-    text-align: center;        /* Teks di dalam badge rata tengah */
-    line-height: 1.4;          /* Mengatur tinggi baris agar teks pas di tengah vertikal badge */
+    display: block;            /* Mengubah jadi block agar posisinya mudah diatur mandiri */
+    width: fit-content;        /* Lebar badge menyesuaikan ukuran teksnya */
+    margin: 3px auto 0 auto;   /* 'auto' di kiri dan kanan berfungsi menggesernya tepat ke tengah bawah */
+    background-color: #ef4444; 
+    color: #ffffff;            
+    font-size: 8px;            
+    padding: 0px 4px;          
+    border-radius: 4px;        
+    letter-spacing: 0.5px;
 }
         /* Animasi Dasar (Default: dari bawah ke atas) */
 .reveal {
