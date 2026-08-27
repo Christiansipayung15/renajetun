@@ -13,17 +13,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        .warta-date .new-badge {
-    display: inline-block;
-    background-color: #ef4444; /* Warna merah (atau ganti #6b5344 jika ingin cokelat) */
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: 690;
-    padding: 1px 5px;
-    border-radius: 4px;
-    margin-top: 5px; /* Jarak sedikit dari tanggal di atasnya */
-    letter-spacing: 0.5px;
-}  
+    /* Gaya untuk badge NEW di pojok kanan atas (diperbarui) */
+.warta-date .new-badge {
+    display: inline-block;     /* Agar bisa diberi padding dan ukuran */
+    background-color: #ef4444; /* Warna merah (tetap) */
+    color: #ffffff;            /* Warna teks putih (tetap) */
+    
+    /* PENYESUAIAN UKURAN & POSISI */
+    font-size: 8px;            /* Mengecilkan ukuran font dari 9px menjadi 8px */
+    padding: 0px 4px;          /* Mengecilkan padding agar badge lebih kompak */
+    border-radius: 4px;        /* Sudut membulat (tetap) */
+    margin-top: 3px;           /* Jarak dari tanggal di atasnya (tetap) */
+    
+    /* MEMASTIKAN DI TENGAH SECARA HORIZONTAL */
+    text-align: center;        /* Teks di dalam badge rata tengah */
+    line-height: 1.4;          /* Mengatur tinggi baris agar teks pas di tengah vertikal badge */
+}
         /* Animasi Dasar (Default: dari bawah ke atas) */
 .reveal {
     opacity: 0;
