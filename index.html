@@ -1882,8 +1882,31 @@
 
     <!-- JavaScript Fungsionalitas Website -->
     <script>
+let selectedButton = null;
 
-       let selectedButton = null;
+// Saat halaman dimuat, ambil data angka & pilihan yang tersimpan sebelumnya
+document.addEventListener("DOMContentLoaded", function() {
+    const counts = document.querySelectorAll('.emoji-option .count');
+    counts.forEach((countSpan, index) => {
+        let savedCount = localStorage.getItem('reaction_count_' + index);
+        if (savedCount !== null) {
+            countSpan.textContent = savedCount;
+        }
+    });
+
+    let savedSelectionIndex = localStorage.getItem('user_selected_emoji');
+    if (savedSelectionIndex !== null) {
+        const options = document.querySelectorAll('.emoji-option');
+        if (options[savedSelectionIndex]) {
+            options[savedSelectionIndex].classList.add('active');
+            selectedButton = options[savedSelectionIndex];
+            
+            // Tampilkan kembali emoji terpilih di samping tombol utama
+            const emojiDisplay = document.getElementById('selectedEmojiDisplay');
+            emojiDisplay.textContent = selectedButton.querySelector('span').textContent;
+        }
+    }
+});
 
 // Fungsi untuk membuka/menutup menu pop-up reaksi
 function toggleReactionMenu(event) {
@@ -1894,34 +1917,48 @@ function toggleReactionMenu(event) {
 
 // Fungsi saat salah satu emoji diklik/dipilih
 function selectReaction(emojiType, buttonElement) {
+    const options = document.querySelectorAll('.emoji-option');
+    const buttonIndex = Array.from(options).indexOf(buttonElement);
     const countSpan = buttonElement.querySelector('.count');
-    let currentCount = parseInt(countSpan.textContent);
+    let currentCount = parseInt(countSpan.textContent) || 0;
     const emojiDisplay = document.getElementById('selectedEmojiDisplay');
 
     if (selectedButton === buttonElement) {
         // Jika mengklik emoji yang sama (membatalkan pilihan)
-        countSpan.textContent = currentCount - 1;
+        currentCount -= 1;
+        countSpan.textContent = currentCount;
         buttonElement.classList.remove('active');
         selectedButton = null;
         
-        // Hapus emoji dari samping tombol utama
+        // Hapus penyimpanan pilihan user
+        localStorage.removeItem('user_selected_emoji');
         emojiDisplay.textContent = '';
     } else {
         // Jika memilih emoji baru, kurangi yang lama jika ada
         if (selectedButton !== null) {
+            const oldIndex = Array.from(options).indexOf(selectedButton);
             const oldSelectedCount = selectedButton.querySelector('.count');
-            oldSelectedCount.textContent = parseInt(oldSelectedCount.textContent) - 1;
+            let oldVal = parseInt(oldSelectedCount.textContent) || 1;
+            oldSelectedCount.textContent = oldVal - 1;
             selectedButton.classList.remove('active');
+            
+            // Simpan perubahan angka yang lama ke localStorage
+            localStorage.setItem('reaction_count_' + oldIndex, oldSelectedCount.textContent);
         }
 
         // Tambah angka di emoji yang baru dan aktifkan
-        countSpan.textContent = currentCount + 1;
+        currentCount += 1;
+        countSpan.textContent = currentCount;
         buttonElement.classList.add('active');
         selectedButton = buttonElement;
 
-        // Tampilkan emoji yang dipilih di samping tulisan "Berikan Reaksi"
+        // Simpan pilihan user ke localStorage
+        localStorage.setItem('user_selected_emoji', buttonIndex);
         emojiDisplay.textContent = emojiType;
     }
+
+    // Simpan angka terbaru tombol ini ke localStorage
+    localStorage.setItem('reaction_count_' + buttonIndex, currentCount);
 
     // Tutup menu otomatis setelah memilih
     document.getElementById('reactionMenu').classList.remove('show');
@@ -1930,10 +1967,12 @@ function selectReaction(emojiType, buttonElement) {
 // Tutup menu pop-up jika pengguna mengklik area di luar menu
 window.addEventListener('click', function() {
     const menu = document.getElementById('reactionMenu');
-    if (menu.classList.contains('show')) {
+    if (menu && menu.classList.contains('show')) {
         menu.classList.remove('show');
     }
 });
+
+        
         
 
         
