@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Posisi Pembungkus Reaksi */
+        /* Posisi Pembungkus Reaksi di dalam Kotak Warta */
 .reaction-wrapper {
     position: relative;
-    margin-top: 20px;
+    margin-top: 25px;
     padding-top: 15px;
     border-top: 1px dashed #e5dccc;
-    display: inline-block;
+    display: block;
 }
 
 /* Tombol Utama "Berikan Reaksi" */
@@ -32,7 +32,7 @@
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 6px;
     transition: all 0.2s ease;
@@ -52,16 +52,16 @@
 /* Kotak Menu Pop-up Emoji (Tersembunyi mutlak di awal) */
 .reaction-popup-menu {
     position: absolute;
-    bottom: 110%; /* Muncul di atas tombol */
+    bottom: 115%; /* Muncul melayang ke atas tombol */
     left: 0;
     background-color: #ffffff;
     border: 1px solid #e6dcce;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     padding: 6px 10px;
-    display: none !important; /* Wajib pakai !important agar tidak muncul sebelum diklik */
+    display: none !important; /* Wajib !important agar tidak muncul sebelum diklik */
     gap: 8px;
-    z-index: 10;
+    z-index: 99;
     animation: fadeIn 0.2s ease;
 }
 
@@ -95,7 +95,7 @@
     color: #6b5344;
 }
 
-/* Ketika Emoji Dipilih (Hanya bisa 1 aktif) */
+/* Ketika Emoji Dipilih (Hanya 1 yang aktif) */
 .emoji-option.active {
     background-color: #faede3;
     border: 1px solid #cbb9a3;
@@ -106,6 +106,10 @@
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+        
+
     /* Gaya untuk badge NEW di pojok kanan atas (diperbarui) */
 /* Mengatur kontainer tanggal agar perataan teksnya ke kanan (menyesuaikan posisi tanggal) */
 .warta-date {
@@ -1767,24 +1771,22 @@
 
       <!-- Bagian Menu Reaksi Pop-up -->
 <div class="reaction-wrapper">
-    <!-- Tombol Utama dengan tempat tampilnya emoji terpilih -->
-    <button class="reaction-toggle-btn" onclick="toggleReactionMenu(event)">
-        <i class="fa-regular fa-face-smile"></i> Berikan Reaksi <span id="selectedEmojiDisplay"></span>
-    </button>
+        <button class="reaction-toggle-btn" onclick="toggleReactionMenu(event)">
+            <i class="fa-regular fa-face-smile"></i> Berikan Reaksi <span id="selectedEmojiDisplay"></span>
+        </button>
 
-    <!-- Kotak Menu Pop-up Emoji (Tersembunyi di awal) -->
-    <div class="reaction-popup-menu" id="reactionMenu">
-        <button class="emoji-option" onclick="selectReaction('😇', this)">
-            <span>😇</span> <span class="count">0</span>
-        </button>
-        <button class="emoji-option" onclick="selectReaction('👍', this)">
-            <span>👍</span> <span class="count">0</span>
-        </button>
-        <button class="emoji-option" onclick="selectReaction('❤️', this)">
-            <span>❤️</span> <span class="count">0</span>
-        </button>
+        <div class="reaction-popup-menu" id="reactionMenu">
+            <button class="emoji-option" onclick="selectReaction('😇', this)">
+                <span>😇</span> <span class="count">0</span>
+            </button>
+            <button class="emoji-option" onclick="selectReaction('👍', this)">
+                <span>👍</span> <span class="count">0</span>
+            </button>
+            <button class="emoji-option" onclick="selectReaction('❤️', this)">
+                <span>❤️</span> <span class="count">0</span>
+            </button>
+        </div>
     </div>
-</div>
 
 
     </section>
@@ -1878,7 +1880,7 @@
     <!-- JavaScript Fungsionalitas Website -->
     <script>
 
-        let selectedButton = null;
+let selectedButton = null;
 
 // Fungsi untuk membuka/menutup menu pop-up reaksi
 function toggleReactionMenu(event) {
@@ -1929,6 +1931,8 @@ window.addEventListener('click', function() {
         menu.classList.remove('show');
     }
 });
+
+        
   function revealOnScroll() {
         // Menangkap semua elemen dengan berbagai arah animasi
         var reveals = document.querySelectorAll(".reveal, .reveal-top, .reveal-left, .reveal-right");
