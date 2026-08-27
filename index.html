@@ -13,6 +13,99 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Posisi Pembungkus Reaksi */
+.reaction-wrapper {
+    position: relative;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #e5dccc;
+    display: inline-block;
+}
+
+/* Tombol Utama "Berikan Reaksi" */
+.reaction-toggle-btn {
+    background-color: #f5f0eb;
+    border: 1px solid #e6dcce;
+    color: #6b5344;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.reaction-toggle-btn:hover {
+    background-color: #ebe2d5;
+}
+
+/* Tampilan Emoji di Samping Tombol Utama */
+#selectedEmojiDisplay {
+    margin-left: 4px;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+/* Kotak Menu Pop-up Emoji (Tersembunyi mutlak di awal) */
+.reaction-popup-menu {
+    position: absolute;
+    bottom: 110%; /* Muncul di atas tombol */
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #e6dcce;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 6px 10px;
+    display: none !important; /* Wajib pakai !important agar tidak muncul sebelum diklik */
+    gap: 8px;
+    z-index: 10;
+    animation: fadeIn 0.2s ease;
+}
+
+/* Kelas saat menu dibuka oleh JavaScript */
+.reaction-popup-menu.show {
+    display: flex !important;
+}
+
+/* Tombol Pilihan Emoji di dalam Pop-up */
+.emoji-option {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.emoji-option:hover {
+    background-color: #f5f0eb;
+    transform: scale(1.1);
+}
+
+.emoji-option .count {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b5344;
+}
+
+/* Ketika Emoji Dipilih (Hanya bisa 1 aktif) */
+.emoji-option.active {
+    background-color: #faede3;
+    border: 1px solid #cbb9a3;
+}
+
+/* Animasi Muncul Halus */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
     /* Gaya untuk badge NEW di pojok kanan atas (diperbarui) */
 /* Mengatur kontainer tanggal agar perataan teksnya ke kanan (menyesuaikan posisi tanggal) */
 .warta-date {
@@ -1672,6 +1765,26 @@
 
 </div>
 
+      <!-- Bagian Menu Reaksi Pop-up -->
+<div class="reaction-wrapper">
+    <!-- Tombol Utama dengan tempat tampilnya emoji terpilih -->
+    <button class="reaction-toggle-btn" onclick="toggleReactionMenu(event)">
+        <i class="fa-regular fa-face-smile"></i> Berikan Reaksi <span id="selectedEmojiDisplay"></span>
+    </button>
+
+    <!-- Kotak Menu Pop-up Emoji (Tersembunyi di awal) -->
+    <div class="reaction-popup-menu" id="reactionMenu">
+        <button class="emoji-option" onclick="selectReaction('😇', this)">
+            <span>😇</span> <span class="count">0</span>
+        </button>
+        <button class="emoji-option" onclick="selectReaction('👍', this)">
+            <span>👍</span> <span class="count">0</span>
+        </button>
+        <button class="emoji-option" onclick="selectReaction('❤️', this)">
+            <span>❤️</span> <span class="count">0</span>
+        </button>
+    </div>
+</div>
 
 
     </section>
@@ -1764,6 +1877,58 @@
 
     <!-- JavaScript Fungsionalitas Website -->
     <script>
+
+        let selectedButton = null;
+
+// Fungsi untuk membuka/menutup menu pop-up reaksi
+function toggleReactionMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('reactionMenu');
+    menu.classList.toggle('show');
+}
+
+// Fungsi saat salah satu emoji diklik/dipilih
+function selectReaction(emojiType, buttonElement) {
+    const countSpan = buttonElement.querySelector('.count');
+    let currentCount = parseInt(countSpan.textContent);
+    const emojiDisplay = document.getElementById('selectedEmojiDisplay');
+
+    if (selectedButton === buttonElement) {
+        // Jika mengklik emoji yang sama (membatalkan pilihan)
+        countSpan.textContent = currentCount - 1;
+        buttonElement.classList.remove('active');
+        selectedButton = null;
+        
+        // Hapus emoji dari samping tombol utama
+        emojiDisplay.textContent = '';
+    } else {
+        // Jika memilih emoji baru, kurangi yang lama jika ada
+        if (selectedButton !== null) {
+            const oldSelectedCount = selectedButton.querySelector('.count');
+            oldSelectedCount.textContent = parseInt(oldSelectedCount.textContent) - 1;
+            selectedButton.classList.remove('active');
+        }
+
+        // Tambah angka di emoji yang baru dan aktifkan
+        countSpan.textContent = currentCount + 1;
+        buttonElement.classList.add('active');
+        selectedButton = buttonElement;
+
+        // Tampilkan emoji yang dipilih di samping tulisan "Berikan Reaksi"
+        emojiDisplay.textContent = emojiType;
+    }
+
+    // Tutup menu otomatis setelah memilih
+    document.getElementById('reactionMenu').classList.remove('show');
+}
+
+// Tutup menu pop-up jika pengguna mengklik area di luar menu
+window.addEventListener('click', function() {
+    const menu = document.getElementById('reactionMenu');
+    if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+    }
+});
   function revealOnScroll() {
         // Menangkap semua elemen dengan berbagai arah animasi
         var reveals = document.querySelectorAll(".reveal, .reveal-top, .reveal-left, .reveal-right");
