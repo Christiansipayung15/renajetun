@@ -13,6 +13,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        .warta-date .new-badge {
+    display: inline-block;
+    background-color: #ef4444; /* Warna merah (atau ganti #6b5344 jika ingin cokelat) */
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-top: 5px; /* Jarak sedikit dari tanggal di atasnya */
+    letter-spacing: 0.5px;
+}  
         /* Animasi Dasar (Default: dari bawah ke atas) */
 .reveal {
     opacity: 0;
@@ -1603,14 +1614,20 @@
     <!-- Warta Item 1 (Default / Awal) -->
  <div class="warta-item">
 
-    <div class="warta-header-box">
+   <div class="warta-header-box">
+    <div class="warta-tag-date">
+        <span class="warta-badge">Minggu Ini</span>
 
-        <div class="warta-tag-date">
-            <span class="warta-badge">Minggu Ini</span>
-            <div class="warta-date">
-                <i class="fa-regular fa-calendar"></i> 29 Agustus 2026
-            </div>
+        <div class="warta-date">
+            <i class="fa-regular fa-calendar"></i>
+            <!-- Tambahkan tag <br> di sini agar 'NEW' turun ke bawah -->
+            <span>
+                29 Agustus 2026 <br>
+                <span class="new-badge">NEW</span>
+            </span>
         </div>
+    </div>
+</div>
 
         <h3><u>Jadwal Ibadah & Latihan Koor</u></h3>
 
