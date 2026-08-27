@@ -858,27 +858,46 @@
             color: var(--text-muted);
         }
 
-        .contact-btn {
+
+
+
+
+        
+       .contact-btn {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: transparent;
-            color: var(--logo-title);
-            border: 1px solid var(--card-inner);
+            background-color: #d1d5db; /* Warna abu-abu muda */
+            color: #1f2937;            /* Teks gelap agar mudah dibaca di atas abu-abu muda */
+            border: 1px solid #9ca3af; 
             text-align: center;
             border-radius: 30px;
             text-decoration: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
+        /* Efek saat kursor diarahkan (hover) */
         .contact-btn:hover {
-            background-color: var(--button-action-bg);
-            color: var(--button-action-text);
-            border-color: var(--button-action-bg);
+            background-color: #9ca3af; 
+            color: #1f2937;
+            transform: translateY(-2px);
         }
+
+        /* Efek saat tombol ditekan jadi abu-abu tua */
+        .contact-btn:active {
+            background-color: #4b5563; /* Berubah jadi abu-abu tua saat ditekan */
+            color: #ffffff;            /* Teks berubah jadi putih agar kontras */
+            border-color: #374151;
+            transform: translateY(1px);  
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        
         .activity-meta {
             display: flex;
             justify-content: space-between;
