@@ -14,12 +14,23 @@
     
     <style>
     /* Styling Ikon Sosial Media Bergerak dengan 1 Warna Oranye Menyala */
-.footer-social-icons {
-    display: flex;
-    gap: 18px;
-    margin-top: 15px;
+/* Mengatur posisi footer agar mendukung penempatan absolut di pojok */
+.footer-container {
+    position: relative;
+    padding-bottom: 40px;
 }
 
+/* Memposisikan ikon secara vertikal (atas-bawah) di pojok kanan bawah */
+.footer-social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    right: 30px;
+    bottom: 40px;
+}
+
+/* Styling Ikon Sosial Media Bentuk Bulat, Oranye Menyala, dan Berdetak */
 .footer-social-icons a {
     display: flex;
     align-items: center;
@@ -31,18 +42,18 @@
     text-decoration: none;
     position: relative;
     box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
-    /* Animasi bergerak naik-turun dan efek menyala */
+    /* Animasi bergerak naik-turun dan efek menyala berdetak */
     animation: bounceIcon 2s infinite ease-in-out, glowSingle 2s infinite alternate;
 }
 
-/* Mengatur warna tunggal Oranye yang cerah dan menarik */
+/* Mengatur warna ikon menjadi Oranye cerah */
 .footer-social-icons a i {
     font-size: 26px;
     color: #ff6600; 
     text-shadow: 0 0 10px rgba(255, 102, 0, 0.8), 0 0 20px rgba(255, 102, 0, 0.4);
 }
 
-/* Animasi Efek Nyala (Glow) Satu Warna */
+/* Animasi Efek Nyala (Glow) Warna Oranye */
 @keyframes glowSingle {
     0% {
         box-shadow: 0 0 10px rgba(255, 102, 0, 0.3), inset 0 0 5px rgba(255, 102, 0, 0.2);
@@ -52,7 +63,7 @@
     }
 }
 
-/* Animasi Bergerak (Memantul) */
+/* Animasi Bergerak (Memantul / Berdetak) */
 @keyframes bounceIcon {
     0%, 100% {
         transform: translateY(0) scale(1);
@@ -65,6 +76,9 @@
 .footer-social-icons a:hover {
     transform: scale(1.15);
 }
+
+
+        
 
         
             /* Container Utama Warta Melebar */
@@ -1988,14 +2002,15 @@
     
     <!-- Footer Ditambahkan di Sini (Sesuai Gaya Desain Anda) -->
  <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>RENA HKBP Jetun Kabil</h3>
-                <p>Wadah persekutuan, pertumbuhan iman, dan pelayanan pemuda-pemudi HKBP Jetun Kabil untuk berdampak bagi gereja dan sesama.</p>
-             <div class="footer-social-icons">
-        <a href="javascript:void(0);" style="pointer-events: none; cursor: default;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://www.instagram.com/renahkbp.jetun?igsi=MTNkcnp0Z3lndnhwbw==" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> 
-            </div>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>RENA HKBP Jetun Kabil</h3>
+            <p>Wadah persekutuan, pertumbuhan iman, dan pelayanan pemuda-pemudi HKBP Jetun Kabil untuk berdampak bagi gereja dan sesama.</p>
+        </div>
+        <div class="footer-social-icons">
+            <a href="javascript:void(0);" style="pointer-events: none; cursor: default;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/renahkbp.jetun?igsi=MTNkcnp0Z3lndnhwbw==" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> 
+        </div>
             <div class="footer-col">
                 <h3>Tautan Cepat</h3>
                 <ul class="footer-links">
