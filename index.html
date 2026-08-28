@@ -13,6 +13,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+                /* Mengatur kotak warta agar melebar dan ramping ke samping */
+.warta-main-container, 
+.warta-item {
+    width: 100%;
+    max-width: 950px; /* Lebar maksimal diperbesar agar melebar */
+    margin: 0 auto;   /* Posisikan di tengah */
+    padding: 25px 35px !important; 
+    border-radius: 16px; 
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-inner) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.15), 0 8px 25px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+}
+
+/* Efek menyala terang saat kursor diarahkan */
+.warta-main-container:hover, 
+.warta-item:hover {
+    border-color: rgba(212, 175, 55, 0.9);
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.4), 0 12px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+/* Styling teks di dalam kotak warta */
+.warta-item h3 {
+    font-size: 20px !important;
+    margin-bottom: 12px !important;
+    font-family: 'Lucida Calligraphy', 'Lucida Handwriting', cursive, sans-serif !important;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+        
+.warta-item p, 
+.warta-item div {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    font-family: 'Lucida Calligraphy', 'Lucida Handwriting', cursive, sans-serif !important;
+}
           /* Posisi Pembungkus Reaksi di dalam Kotak Warta */
 .reaction-wrapper {
     position: relative;
