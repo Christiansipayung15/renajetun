@@ -13,6 +13,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Styling Ikon Sosial Media di Footer */
+.footer-social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.footer-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: var(--card-inner);
+    color: var(--logo-title);
+    border-radius: 50%;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    background-color: var(--button-action-bg);
+    color: var(--button-action-text);
+    transform: translateY(-3px);
+}
+
+        
             /* Container Utama Warta Melebar */
 .warta-main-container, 
 .warta-item {
@@ -1933,11 +1961,14 @@
 
     
     <!-- Footer Ditambahkan di Sini (Sesuai Gaya Desain Anda) -->
-    <footer>
+ <footer>
         <div class="footer-container">
             <div class="footer-col">
                 <h3>RENA HKBP Jetun Kabil</h3>
                 <p>Wadah persekutuan, pertumbuhan iman, dan pelayanan pemuda-pemudi HKBP Jetun Kabil untuk berdampak bagi gereja dan sesama.</p>
+             <div class="footer-social-icons">
+        <a href="javascript:void(0);" style="pointer-events: none; cursor: default;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/renahkbp.jetun?igsi=MTNkcnp0Z3lndnhwbw==" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> 
             </div>
             <div class="footer-col">
                 <h3>Tautan Cepat</h3>
