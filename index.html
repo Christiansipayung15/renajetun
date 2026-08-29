@@ -19,22 +19,31 @@
 
 
 
-               /* Latar Belakang Luar Blur & Gelap Elegan */
+             /* Overlay Layar Penuh dengan Gambar Background & Efek Blur Tipis */
 #welcome-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('gereja.png');
+    
+    /* Ganti 'URL_GAMBAR_GEREJA.png' dengan link atau nama file foto gereja Anda */
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)), url('URL_GAMBAR_GEREJA.png');
     background-size: cover;
-    background-position: center;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    /* Efek blur tipis pada background */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    
     z-index: 99999;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 20px;
+    
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -46,95 +55,76 @@
     visibility: visible;
 }
 
-/* Kartu Bentuk Rumah/Gereja dengan Efek Mewah */
-.welcome-house-card {
-    position: relative;
-    width: 90%;
-    max-width: 480px;
-    /* Padding atas dinaikkan jadi 100px agar logo ada di dalam ruang atap yang tinggi */
-    padding: 100px 35px 45px 35px;
-    text-align: center;
-    
-    background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(15, 15, 15, 0.98));
-    border: 2px solid rgba(255, 153, 0, 0.8);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 153, 0, 0.2);
-    
-    /* MODIFIKASI ATAP: Titik puncak atap ditarik lebih tinggi ke atas (35% dan 0%) */
-    clip-path: polygon(
-        0% 35%,     /* Titik awal kemiringan dinding ke atap di sebelah kiri */
-        50% 0%,     /* Puncak lancip atap di tengah-tengah atas */
-        100% 35%,   /* Titik awal kemiringan dinding ke atap di sebelah kanan */
-        100% 100%,  /* Sudut kanan bawah */
-        0% 100%     /* Sudut kiri bawah */
-    );
-    
-    transform: translateY(20px) scale(0.95);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-#welcome-overlay.active .welcome-house-card {
-    transform: translateY(0) scale(1);
-}
-
-/* Efek Cahaya Emas di Puncak Atap */
-.house-roof-glow {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 4px;
-    background: #ffaa00;
-    box-shadow: 0 0 15px #ff9900, 0 0 30px #ff9900;
-    z-index: 4;
-}
-
-/* Konten Teks & Logo */
-.welcome-content {
-    position: relative;
-    z-index: 3;
+/* Penataan Teks di Tengah Layar */
+.welcome-fullscreen-content {
     color: #ffffff;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    max-width: 600px;
+    animation: fadeInText 0.8s ease-out forwards;
 }
 
-.welcome-logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 18px;
-}
-
-.welcome-logo-img {
-    width: 65px;
-    height: 65px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ffaa00;
-    box-shadow: 0 0 20px rgba(255, 170, 0, 0.5);
-    animation: pulseLogo 2s infinite ease-in-out;
-}
-
-@keyframes pulseLogo {
-    0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 170, 0, 0.4); }
-    50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 170, 0, 0.8); }
-    100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 170, 0, 0.4); }
-}
-
-.welcome-content h2 {
-    font-size: 23px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 12px;
-    line-height: 1.4;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-    letter-spacing: 0.5px;
-}
-
-.welcome-content p {
-    font-size: 13px;
-    color: #ffcc80;
+.welcome-sub-top {
+    font-family: 'Brush Script MT', 'Great Vibes', cursive; /* Font sambung/script yang elegan */
+    font-size: 28px;
     font-style: italic;
-    letter-spacing: 0.3px;
+    color: #fceade;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
+
+.welcome-fullscreen-content h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+}
+
+/* Garis Pemisah dengan Simbol Salib Kecil */
+.welcome-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px auto 20px auto;
+    width: 60%;
+}
+
+.welcome-divider::before,
+.welcome-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.welcome-divider span {
+    padding: 0 12px;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.welcome-instruction {
+    font-size: 14px;
+    color: #f0f0f0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Animasi Muncul Halus */
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        
 
 
 
@@ -1594,19 +1584,14 @@
 </head>
 <body>
 
-       <div id="welcome-overlay">
-    <div class="welcome-house-card">
-        <div class="house-roof-glow"></div>
-        <div class="welcome-content">
-            <div class="welcome-logo-container">
-                <img src="logo.jpg" alt="Logo HKBP" class="welcome-logo-img">
-            </div>
-            <h2>Selamat datang di RENA HKBP JETUN KABIL</h2>
-            <p>Ketuk atau klik di mana saja untuk masuk</p>
-        </div>
+<div id="welcome-overlay" class="active">
+    <div class="welcome-fullscreen-content">
+        <p class="welcome-sub-top">Selamat datang di</p>
+        <h1>RENA HKBP JETUN KABIL</h1>
+        <div class="welcome-divider"><span>†</span></div>
+        <p class="welcome-instruction">Ketuk atau klik di mana saja untuk masuk</p>
     </div>
 </div>
-
 
 
 
@@ -2249,18 +2234,17 @@
 
     <!-- JavaScript Fungsionalitas Website -->
     <script>
-            const welcomeOverlay = document.getElementById('welcome-overlay');
+  const welcomeOverlay = document.getElementById('welcome-overlay');
 
-    // Muncul otomatis saat halaman direfresh
+    // Otomatis muncul setiap kali halaman direfresh
     window.addEventListener('DOMContentLoaded', () => {
         welcomeOverlay.classList.add('active');
     });
 
-    // Hilangkan overlay saat diklik/disentuh
+    // Menghilangkan overlay saat layar diklik/disentuh agar pengunjung bisa masuk ke web utama
     welcomeOverlay.addEventListener('click', () => {
         welcomeOverlay.classList.remove('active');
     });
-
 
 
 
